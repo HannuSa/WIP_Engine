@@ -1,18 +1,18 @@
-#include "Window.h"
+#include "Window.h""
+#include <assert.h>
 
-
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w_param, LPARAM l_param)
+LRESULT CALLBACK WndProc(HWND _hwnd, UINT _msg, WPARAM _w_param, LPARAM _l_param)
 {
-	switch (msg)
+	switch (_msg)
 	{
 	case WM_CLOSE:
-		DestroyWindow(hwnd);
+		DestroyWindow(_hwnd);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	default:
-		return DefWindowProc(hwnd, msg, w_param, l_param);
+		return DefWindowProc(_hwnd, _msg, _w_param, _l_param);
 	}
 }
 
@@ -30,6 +30,7 @@ Window::~Window()
 {
 }
 
+/*Register and initialize windows window*/
 void Window::Initialize()
 {
 	x = 100;
@@ -52,6 +53,7 @@ void Window::Initialize()
 
 	handle = NULL;
 
+	//Register window
 	assert(RegisterClassEx(&classex));
 
 	viewAreaRect.top = 0;
@@ -72,6 +74,7 @@ void Window::Initialize()
 	ShowWindow(handle, SW_SHOWNORMAL);
 }
 
+/*Test if window wash opened succesfully*/
 bool Window::IsOpen()
 {
 	while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE) != 0)
@@ -82,16 +85,4 @@ bool Window::IsOpen()
 			DispatchMessage(&message);
 	}
 	return true;
-}
-
-LPCWSTR convertString(std::string string)
-{
-	int slength = string.length() + 1;
-	int len = MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len]; 
-	MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, buf, len);
-	std::wstring temp(buf);
-	delete[] buf;
-
-	return temp.c_str();
 }

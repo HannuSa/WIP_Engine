@@ -1,19 +1,21 @@
-﻿Build started 19.9.2014 9:59:53.
-     1>Project "c:\Users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" on node 2 (Build target(s)).
+﻿Build started 19.9.2014 10:49:17.
+     1>Project "C:\Users\tti13snicoa\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt lodepng.cpp Main.cpp Window.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp Window.cpp
          Window.cpp
-         Main.cpp
-         lodepng.cpp
+     1>c:\users\tti13snicoa\desktop\wip_engine\wip_engine\window.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
          Generating Code...
-     1>c:\users\tti13saleksil\documents\visual studio 2013\projects\wip_engine\wip_engine\window.cpp(17): warning C4715: 'WndProc' : not all control paths return a value
+     1>c:\users\tti13snicoa\desktop\wip_engine\wip_engine\window.cpp(17): warning C4715: 'WndProc' : not all control paths return a value
+         Compiling...
+         Main.cpp
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\Debug\WIP_Engine.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"c:\users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\Debug\WIP_Engine.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\Debug\WIP_Engine.lib" /MACHINE:X86 Debug\lodepng.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\tti13snicoa\Desktop\WIP_Engine\Debug\WIP_Engine.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\tti13snicoa\Desktop\WIP_Engine\Debug\WIP_Engine.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\tti13snicoa\Desktop\WIP_Engine\Debug\WIP_Engine.lib" /MACHINE:X86 Debug\lodepng.obj
          Debug\Main.obj
          Debug\Window.obj
-         WIP_Engine.vcxproj -> c:\users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\Debug\WIP_Engine.exe
-     1>Done Building Project "c:\Users\tti13saleksil\documents\visual studio 2013\Projects\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" (Build target(s)).
+         WIP_Engine.vcxproj -> C:\Users\tti13snicoa\Desktop\WIP_Engine\Debug\WIP_Engine.exe
+     1>Done Building Project "C:\Users\tti13snicoa\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.88
+Time Elapsed 00:00:01.93

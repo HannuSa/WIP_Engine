@@ -135,6 +135,19 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
+
+###########
+Own
+###########
+.exe
+.ilk
+.pdb
+.sdf
+.obj
+.idb
+.log
+.tlog
+
 #############
 ## Windows detritus
 #############

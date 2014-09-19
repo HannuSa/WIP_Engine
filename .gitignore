@@ -139,14 +139,18 @@ App_Data/*.ldf
 ###########
 Own
 ###########
-.exe
-.ilk
-.pdb
-.sdf
-.obj
-.idb
-.log
-.tlog
+*.exe
+*.ilk
+*.pdb
+*.sdf
+*.obj
+*.idb
+*.log
+*.tlog
+
+
+Debug/*
+WIP_Engine/Debug/*
 
 #############
 ## Windows detritus
@@ -164,3 +168,5 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+*.log
+*.sdf

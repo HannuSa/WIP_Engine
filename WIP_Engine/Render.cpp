@@ -1,5 +1,5 @@
 #include "Render.h"
-
+#include "Debug.h"
 
 Render::Render()
 {
@@ -25,7 +25,7 @@ GLuint Render::SetShaders()
 
 
 	glGetShaderiv(vertexObject, GL_COMPILE_STATUS, &compile);
-	assert(compile == GL_TRUE);
+	Debug::KillMessage(compile == GL_TRUE,"vertexObject compile failed");
 
 
 	//Fragment shader creation
@@ -36,7 +36,7 @@ GLuint Render::SetShaders()
 	glCompileShader(fragmentObject);
 
 	glGetShaderiv(fragmentObject, GL_COMPILE_STATUS, &compile);
-	assert(compile == GL_TRUE);
+	Debug::KillMessage(compile == GL_TRUE, "fragmentObject compile failed");
 
 
 	//Program creation and linking
@@ -48,7 +48,7 @@ GLuint Render::SetShaders()
 	glLinkProgram(shaderProgram);
 
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compile);
-	assert(compile == GL_TRUE);
+	Debug::KillMessage(compile == GL_TRUE, "shaderObject Link failed");
 
 	return shaderProgram;
 }

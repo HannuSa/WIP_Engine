@@ -1,15 +1,12 @@
-﻿Build started 3.10.2014 10:54:08.
-     1>Project "C:\Users\tti13saleksil\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\tti13saleksil\Desktop\WIP_Engine\GLEW\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
-         Main.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\tti13saleksil\Desktop\WIP_Engine\Debug\WIP_Engine.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\tti13saleksil\Desktop\WIP_Engine\GLEW\lib opengl32.lib glu32.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\tti13saleksil\Desktop\WIP_Engine\Debug\WIP_Engine.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"mainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\tti13saleksil\Desktop\WIP_Engine\Debug\WIP_Engine.lib" /MACHINE:X86 Debug\lodepng.obj
-         Debug\Main.obj
-         Debug\Window.obj
-         WIP_Engine.vcxproj -> C:\Users\tti13saleksil\Desktop\WIP_Engine\Debug\WIP_Engine.exe
-     1>Done Building Project "C:\Users\tti13saleksil\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" (Build target(s)).
+﻿Build started 3.10.2014 12:25:20.
+     1>Project "C:\Users\tti13snicoa\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" on node 2 (Build target(s)).
+     1>FxCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\fxc.exe /nologo /E"main" /Fo "C:\Users\tti13snicoa\Desktop\WIP_Engine\Debug\PixelShader.cso" /Od /Zi PixelShader.hlsl 
+     1>C:\Users\tti13snicoa\Desktop\WIP_Engine\WIP_Engine\PixelShader.hlsl(1,1-7): error X3000: unrecognized identifier 'varying'
+         
+         compilation failed; no code produced
+     1>Done Building Project "C:\Users\tti13snicoa\Desktop\WIP_Engine\WIP_Engine\WIP_Engine.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.83
+Time Elapsed 00:00:00.05

@@ -1,18 +1,18 @@
-#include "Window.h""
-#include <assert.h>
+#include "Window.h"
 
-LRESULT CALLBACK WndProc(HWND _hwnd, UINT _msg, WPARAM _w_param, LPARAM _l_param)
+
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w_param, LPARAM l_param)
 {
-	switch (_msg)
+	switch (msg)
 	{
 	case WM_CLOSE:
-		DestroyWindow(_hwnd);
+		DestroyWindow(hwnd);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	default:
-		return DefWindowProc(_hwnd, _msg, _w_param, _l_param);
+		return DefWindowProc(hwnd, msg, w_param, l_param);
 	}
 }
 
@@ -22,7 +22,8 @@ Window::Window(int _width, int _height, std::string _title)
 	height = _height;
 	title = _title;
 
-	Initialize();
+	InitializeWindow();
+	InitializeRenderingContext();
 }
 
 
@@ -30,8 +31,7 @@ Window::~Window()
 {
 }
 
-/*Register and initialize windows window*/
-void Window::Initialize()
+void Window::InitializeWindow()
 {
 	x = 100;
 	y = 100;
@@ -51,9 +51,8 @@ void Window::Initialize()
 	classex.hIconSm = NULL;
 	classex.lpszMenuName = NULL;
 
-	handle = NULL;
+	windowHandle = NULL;
 
-	//Register window
 	assert(RegisterClassEx(&classex));
 
 	viewAreaRect.top = 0;
@@ -66,15 +65,44 @@ void Window::Initialize()
 	height = viewAreaRect.bottom - viewAreaRect.top;
 	width = viewAreaRect.right - viewAreaRect.left;
 
-	handle = CreateWindowEx(WS_EX_CLIENTEDGE, windowClassName.c_str(), title.c_str(), WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+	windowHandle = CreateWindowEx(WS_EX_CLIENTEDGE, windowClassName.c_str(), title.c_str(), WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		x, y, width, height, NULL, NULL, GetModuleHandle(nullptr), NULL);
 
-	assert(handle != NULL);
+	assert(windowHandle != NULL);
 
-	ShowWindow(handle, SW_SHOWNORMAL);
+	ShowWindow(windowHandle, SW_SHOWNORMAL);
 }
 
-/*Test if window wash opened succesfully*/
+void Window::InitializeRenderingContext()
+{
+	pixelFormatDescriptor =
+	{
+		sizeof(PIXELFORMATDESCRIPTOR),
+		1,
+		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,
+		24,					//colordepth
+		0, 0, 0, 0, 0, 0,
+		0,
+		0,
+		0,
+		0, 0, 0, 0,
+		24,					//bits for the depthbuffer
+		0,
+		0,
+		NULL,
+		0,
+		0, 0, 0
+	};
+	deviceContext = GetDC(windowHandle);
+	int pixelFormatIndex = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
+	assert(pixelFormatIndex != 0);
+	SetPixelFormat(deviceContext, pixelFormatIndex, &pixelFormatDescriptor);
+	renderingContext = wglCreateContext(deviceContext);
+	assert(renderingContext != NULL);
+	wglMakeCurrent(deviceContext, renderingContext);
+}
+
 bool Window::IsOpen()
 {
 	while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE) != 0)
@@ -85,4 +113,16 @@ bool Window::IsOpen()
 			DispatchMessage(&message);
 	}
 	return true;
+}
+
+LPCWSTR convertString(std::string string)
+{
+	int slength = string.length() + 1;
+	int len = MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len]; 
+	MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, buf, len);
+	std::wstring temp(buf);
+	delete[] buf;
+
+	return temp.c_str();
 }

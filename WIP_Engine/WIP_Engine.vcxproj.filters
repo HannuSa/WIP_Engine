@@ -36,6 +36,9 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lodepng.h">
@@ -53,13 +56,21 @@
     <ClInclude Include="Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <None Include="fragmentshader.glsl">
       <Filter>Resource Files</Filter>
-    </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    </None>
+    <None Include="vertexshader.glsl">
       <Filter>Resource Files</Filter>
-    </FxCompile>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

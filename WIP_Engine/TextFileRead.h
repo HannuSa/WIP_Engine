@@ -1,3 +1,3 @@
-char *textFileRead(char *fn);
+char *TextFileRead(char *fn);
 int textFileWrite(char *fn, char *s);
 

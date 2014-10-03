@@ -7,7 +7,7 @@ class Render
 public:
 	Render();
 	~Render();
-	GLuint SetShaders();
+	void InitializeShaders();
 
 private: 
 	
@@ -15,4 +15,3 @@ private:
 	GLuint fragmentObject;
 	GLuint shaderProgram;
 };
-

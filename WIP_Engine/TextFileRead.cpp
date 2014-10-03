@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-char *textFileRead(char *fn)
+char *TextFileRead(char *fn)
 {
 	FILE *fp;
 	char *content = NULL;

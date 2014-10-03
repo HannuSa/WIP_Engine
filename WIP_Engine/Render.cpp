@@ -3,14 +3,14 @@
 
 Render::Render()
 {
+	InitializeShaders();
 }
-
 
 Render::~Render()
 {
 }
 
-GLuint Render::SetShaders()
+void Render::InitializeShaders()
 {
 	char* vertexString;
 	char *fragmentString;
@@ -18,7 +18,7 @@ GLuint Render::SetShaders()
 
 	//Vertex shader creation
 	vertexObject = glCreateShader(GL_VERTEX_SHADER);
-	vertexString = textFileRead("VertexShader.hlsl");
+	vertexString = TextFileRead("VertexShader.hlsl");
 	glShaderSource(vertexObject, 1, &vertexString, NULL);
 	free(vertexString);
 	glCompileShader(vertexObject);
@@ -30,7 +30,7 @@ GLuint Render::SetShaders()
 
 	//Fragment shader creation
 	fragmentObject = glCreateShader(GL_FRAGMENT_SHADER);
-	fragmentString = textFileRead("FragmentShader.hlsl");
+	fragmentString = TextFileRead("FragmentShader.hlsl");
 	glShaderSource(fragmentObject, 1, &fragmentString, NULL);
 	free(fragmentString);
 	glCompileShader(fragmentObject);
@@ -40,7 +40,7 @@ GLuint Render::SetShaders()
 
 
 	//Program creation and linking
-	GLuint shaderProgram = glCreateProgram();
+	shaderProgram = glCreateProgram();
 
 	glAttachShader(shaderProgram, vertexObject);
 	glAttachShader(shaderProgram, fragmentObject);
@@ -48,7 +48,6 @@ GLuint Render::SetShaders()
 	glLinkProgram(shaderProgram);
 
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compile);
-	Debug::KillMessage(compile == GL_TRUE, "shaderObject Link failed");
 
-	return shaderProgram;
+	Debug::KillMessage(compile == GL_TRUE, "shaderObject Link failed");
 }

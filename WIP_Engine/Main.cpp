@@ -3,6 +3,7 @@
 #endif
 
 #include "Window.h"
+#include "ResourceManager.h"
 
 int main()
 {
@@ -10,11 +11,17 @@ int main()
 
 	window.SetClearColor(100, 50, 150);
 
+	ResourceManager *res = new ResourceManager();
+
+	res->LoadPixelData("Test.png");
+
 	while (window.IsOpen())
 	{
 		window.Clear();
 		window.Display();
 	}
+
+	res->~ResourceManager();
 
 	return 0;
 }

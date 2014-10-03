@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Debug.h"
 
 //Window procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w_param, LPARAM l_param)
@@ -58,7 +59,7 @@ void Window::InitializeWindow()
 	windowHandle = NULL;
 
 	//Register window
-	assert(RegisterClassEx(&classex));
+	Debug::KillMessage(RegisterClassEx(&classex),"Register window false");
 
 	//Set window size
 	viewAreaRect.top = 0;
@@ -66,7 +67,7 @@ void Window::InitializeWindow()
 	viewAreaRect.bottom = height;
 	viewAreaRect.right = width;
 
-	assert(AdjustWindowRect(&viewAreaRect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, false));
+	Debug::KillMessage(AdjustWindowRect(&viewAreaRect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, false), "Adjust window rect false");
 
 	height = viewAreaRect.bottom - viewAreaRect.top;
 	width = viewAreaRect.right - viewAreaRect.left;
@@ -75,7 +76,7 @@ void Window::InitializeWindow()
 	windowHandle = CreateWindowEx(WS_EX_CLIENTEDGE, windowClassName.c_str(), title.c_str(), WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		x, y, width, height, NULL, NULL, GetModuleHandle(nullptr), NULL);
 
-	assert(windowHandle != NULL);
+	Debug::KillMessage(windowHandle != NULL,"Window handle == null");
 
 	//Show window
 	ShowWindow(windowHandle, SW_SHOWNORMAL);
@@ -108,12 +109,12 @@ void Window::InitializeRenderingContext()
 
 	//Choose and set the pixelformat according to the devicecontext
 	int pixelFormatIndex = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
-	assert(pixelFormatIndex != 0);
+	Debug::KillMessage(pixelFormatIndex != 0, "pixelFormatIndex == 0");
 	SetPixelFormat(deviceContext, pixelFormatIndex, &pixelFormatDescriptor);
 
 	//Create the renderingcontext & make it current
 	renderingContext = wglCreateContext(deviceContext);
-	assert(renderingContext != NULL);
+	Debug::KillMessage(renderingContext != NULL, "rendering context = null");
 	wglMakeCurrent(deviceContext, renderingContext);
 }
 

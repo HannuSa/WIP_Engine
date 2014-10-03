@@ -1,6 +1,6 @@
 #include "Window.h"
 
-
+//Window procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM w_param, LPARAM l_param)
 {
 	switch (msg)
@@ -29,6 +29,9 @@ Window::Window(int _width, int _height, std::string _title)
 
 Window::~Window()
 {
+	//Make renderingcontext uncurrent & destroy it
+	wglMakeCurrent(deviceContext, NULL);
+	wglDeleteContext(renderingContext);
 }
 
 void Window::InitializeWindow()
@@ -38,6 +41,7 @@ void Window::InitializeWindow()
 
 	windowClassName = "WndProc";
 
+	//Initialize the WNDCLASSEX struct
 	classex.cbSize = sizeof(WNDCLASSEX);
 	classex.style = CS_OWNDC;
 	classex.hInstance = GetModuleHandle(nullptr);
@@ -53,8 +57,10 @@ void Window::InitializeWindow()
 
 	windowHandle = NULL;
 
+	//Register window
 	assert(RegisterClassEx(&classex));
 
+	//Set window size
 	viewAreaRect.top = 0;
 	viewAreaRect.left = 0;
 	viewAreaRect.bottom = height;
@@ -65,16 +71,19 @@ void Window::InitializeWindow()
 	height = viewAreaRect.bottom - viewAreaRect.top;
 	width = viewAreaRect.right - viewAreaRect.left;
 
+	//Create window
 	windowHandle = CreateWindowEx(WS_EX_CLIENTEDGE, windowClassName.c_str(), title.c_str(), WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		x, y, width, height, NULL, NULL, GetModuleHandle(nullptr), NULL);
 
 	assert(windowHandle != NULL);
 
+	//Show window
 	ShowWindow(windowHandle, SW_SHOWNORMAL);
 }
 
 void Window::InitializeRenderingContext()
 {
+	//Initialize the PIXELFORMATDESCRIPTOR struct
 	pixelFormatDescriptor =
 	{
 		sizeof(PIXELFORMATDESCRIPTOR),
@@ -94,35 +103,46 @@ void Window::InitializeRenderingContext()
 		0,
 		0, 0, 0
 	};
+	//Get the devicecontext of the window
 	deviceContext = GetDC(windowHandle);
+
+	//Choose and set the pixelformat according to the devicecontext
 	int pixelFormatIndex = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
 	assert(pixelFormatIndex != 0);
 	SetPixelFormat(deviceContext, pixelFormatIndex, &pixelFormatDescriptor);
+
+	//Create the renderingcontext & make it current
 	renderingContext = wglCreateContext(deviceContext);
 	assert(renderingContext != NULL);
 	wglMakeCurrent(deviceContext, renderingContext);
 }
 
+void Window::SetClearColor(int _red, int _green, int _blue)
+{
+	glClearColor(_red / 255.f, _green / 255.f, _blue / 255.f, 0.f);
+}
+
+void Window::Clear()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Window::Display()
+{
+	SwapBuffers(deviceContext);
+}
+
 bool Window::IsOpen()
 {
+	//Go through all the messages, if there are any
 	while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE) != 0)
 	{
+		//Return false if the window has received a quit message
 		if (message.message == WM_QUIT)
 			return false;
 		else
+		//Pass the message to the window procedure
 			DispatchMessage(&message);
 	}
 	return true;
-}
-
-LPCWSTR convertString(std::string string)
-{
-	int slength = string.length() + 1;
-	int len = MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, 0, 0);
-	wchar_t* buf = new wchar_t[len]; 
-	MultiByteToWideChar(CP_ACP, 0, string.c_str(), slength, buf, len);
-	std::wstring temp(buf);
-	delete[] buf;
-
-	return temp.c_str();
 }

@@ -22,7 +22,7 @@ void Render::InitializeShaders()
 
 	//Vertex shader creation
 	vertexObject = glCreateShader(GL_VERTEX_SHADER);
-	vertexString = TextFileRead("VertexShader.glsl");
+	vertexString = res.TextFileRead("VertexShader.glsl");
 	glShaderSource(vertexObject, 1, &vertexString, NULL);
 	free(vertexString);
 	glCompileShader(vertexObject);
@@ -34,7 +34,7 @@ void Render::InitializeShaders()
 
 	//Fragment shader creation
 	fragmentObject = glCreateShader(GL_FRAGMENT_SHADER);
-	fragmentString = TextFileRead("FragmentShader.glsl");
+	fragmentString = res.TextFileRead("FragmentShader.glsl");
 	glShaderSource(fragmentObject, 1, &fragmentString, NULL);
 	free(fragmentString);
 	glCompileShader(fragmentObject);
@@ -65,6 +65,10 @@ void Render::EnableAttributeArray()
 	colorIndex = glGetAttribLocation(shaderProgram, "attrColor");
 	assert(colorIndex >= 0);
 	glEnableVertexAttribArray(colorIndex);
+
+	texCoordIndex = glGetAttribLocation(shaderProgram, "attrTexCoords");
+	assert(texCoordIndex >= 0);
+	glEnableVertexAttribArray(texCoordIndex);
 }
 
 void Render::CreateBuffers(GLsizeiptr _vertexSize, GLsizeiptr _indexSize, const GLfloat* _vertexData, const GLuint* _indexData)
@@ -80,20 +84,28 @@ void Render::CreateBuffers(GLsizeiptr _vertexSize, GLsizeiptr _indexSize, const 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Render::DebugDrawStuff()
+void Render::EnableUniformSampler()
+{
+	uniSamplerLoc = glGetUniformLocation(shaderProgram, "uniSampler2D");
+}
+
+void Render::DebugDrawStuff(Texture _texture)
 {
 	glUseProgram(shaderProgram);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-	glVertexAttribPointer(positionIndex, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(0));
-	glVertexAttribPointer(colorIndex, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat)));
+	glVertexAttribPointer(positionIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(0));
+	glVertexAttribPointer(colorIndex, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat)));
+	glVertexAttribPointer(texCoordIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(5 * sizeof(GLfloat)));
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
-	//	<bind texture heres> set active texture unit, give unit index to sampler
+	glBindTexture(GL_TEXTURE_2D, _texture.texture);
+	glActiveTexture(GL_TEXTURE0);
+	glBindSampler(0, uniSamplerLoc);
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(0));
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	// <unbind texture heres>
 
 	glUseProgram(0);
 }

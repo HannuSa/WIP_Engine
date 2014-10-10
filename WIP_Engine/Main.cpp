@@ -5,20 +5,24 @@
 #include "Window.h"
 #include "Render.h"
 #include "ResourceManager.h"
+#include "Texture.h"
 
 static const GLfloat VERTEX_DATA[] =	//add texture coords
 {
 	//1st vertex
 	0.77f, 0.66f,
 	0.75f, 0.0f, 0.75f,
+	1.0f, 0.0f,
 
 	//2nd vertex
 	-0.77f, 0.66f,
 	0.0f, 0.75f, 0.75f,
+	0.0f, 0.0f,
 
 	//3rd vertex
 	0.0f, -0.66f,
-	1.0f, 1.0f, 1.0f
+	1.0f, 1.0f, 1.0f,
+	0.5f, 1.0f
 };
 
 static const GLuint INDEX_DATA[] =
@@ -30,6 +34,9 @@ int main()
 {
 	Window window(1200, 600, "This is window!");
 	Render render;
+
+	Texture texture;
+	texture.LoadFromFile("Test.png");
 
 	window.SetClearColor(100, 50, 150);
 
@@ -44,7 +51,7 @@ int main()
 	while (window.IsOpen())
 	{
 		window.Clear();
-		render.DebugDrawStuff();
+		render.DebugDrawStuff(texture);
 		window.Display();
 	}
 

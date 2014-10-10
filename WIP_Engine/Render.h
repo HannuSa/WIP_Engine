@@ -5,7 +5,8 @@
 #include <GL/glew.h>
 #include <GL/GL.h>
 #include <GL/GLU.h>
-#include "TextFileRead.h"
+#include "ResourceManager.h"
+#include "Texture.h"
 class Render
 {
 public:
@@ -13,14 +14,16 @@ public:
 	~Render();
 	void InitializeShaders();
 	void EnableAttributeArray();
+	void EnableUniformSampler();
 	void CreateBuffers(GLsizeiptr _vertexSize, GLsizeiptr _indexSize, const GLfloat* _vertexData, const GLuint* _indexData);
-	void DebugDrawStuff();
+	void DebugDrawStuff(Texture _texture);
 
 private: 
-	
+	ResourceManager res;
 	GLuint vertexObject;
 	GLuint fragmentObject;
 	GLuint shaderProgram;
 	GLuint buffers[2];
-	GLuint positionIndex, colorIndex;
+	GLuint positionIndex, colorIndex, texCoordIndex;
+	GLint uniSamplerLoc;
 };

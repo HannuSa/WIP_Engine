@@ -6,13 +6,9 @@
 #include "Render.h"
 #include "ResourceManager.h"
 #include "Texture.h"
-<<<<<<< HEAD
 
-static const GLfloat VERTEX_DATA[] =
-=======
 #include "VertexData.h"
 static const GLfloat VERTEX_DATA[] =	//add texture coords
->>>>>>> c8c443415cc24116a72da120ed6adb188f5fee79
 {
 	//1st vertex
 	0.77f, 0.66f,//Positio
@@ -39,20 +35,16 @@ int main()
 {
 	Window window(1200, 600, "This is window!");
 	Render render;
-<<<<<<< HEAD
 	
 	render.EnableAttributeArray();
 
 	render.CreateBuffers(sizeof(VERTEX_DATA), sizeof(INDEX_DATA), VERTEX_DATA, INDEX_DATA);
-=======
+
 	VertexData ver;
 	ver.AddVertex({ 0.77f, 0.66f, 0.75f, 0.0f, 0.75f, 1.0f, 0.0f,- 0.77f, 0.66f,0.0f, 0.75f, 0.75f,	0.0f, 0.0f,	0.0f, -0.66f,1.0f, 1.0f, 1.0f,0.5f, 1.0f });
 	ver.AddIndex({ 0, 1, 2 });
-	Texture texture;
-	texture.LoadFromFile("Test.png");
 
 	window.SetClearColor(100, 50, 150);
->>>>>>> c8c443415cc24116a72da120ed6adb188f5fee79
 
 	render.EnableBlending();
 

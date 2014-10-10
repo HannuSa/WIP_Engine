@@ -14,8 +14,10 @@ void Debug::Message(bool _test, const std::string &_message)
 {
 	if (!_test)
 	{
+		OutputDebugString("\n\n");
 		OutputDebugString("Error: ");
 		OutputDebugString(_message.c_str());
+		OutputDebugString("\n\n");
 	}
 }
 
@@ -23,8 +25,10 @@ void Debug::KillMessage(bool _test, const std::string &_message)
 {
 	if (!_test)
 	{
+		OutputDebugString("\n\n");
 		OutputDebugString("Error: ");
 		OutputDebugString(_message.c_str());
+		OutputDebugString("\n\n");
 		abort();
 	}
 }

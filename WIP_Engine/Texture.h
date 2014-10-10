@@ -6,18 +6,19 @@
 #include <GL/GL.h>
 #include "lodepng.h"
 
+class ResourceManager;
+
 class Texture
 {
 public:
-	Texture();
+	Texture(){}
+	Texture(std::vector<unsigned char> _imageData, int _width, int _height);
 	~Texture();	
 	
 	GLuint texture;
-	
-	void LoadFromFile(std::string _filename);
+	unsigned int width, height;
 private:
 	std::vector<unsigned char> imageData;
-	unsigned int width, height;
 
-	void Initialize();
+	void Initialize(); //Generate texture & create resource manager
 };

@@ -1,5 +1,7 @@
 #include "ResourceManager.h"
 
+ResourceManager* ResourceManager::instance = nullptr;
+
 ResourceManager::ResourceManager()
 {
 }
@@ -7,19 +9,46 @@ ResourceManager::ResourceManager()
 
 ResourceManager::~ResourceManager()
 {
+	glDeleteTextures(1, 0);
 }
 
-
-void ResourceManager::LoadPixelData(std::string _filename)
+Texture* ResourceManager::CheckTextureID(int _id)
 {
-	unsigned width, height;
-	lodepng::load_file(png, _filename);
-	unsigned error = lodepng::decode(image, width, height, png);
+	std::map<int, Texture>::iterator it;
 
-	if (error)
-		std::cout << "decoder error" << error <<":" << lodepng_error_text(error) << std::endl;
+	it = textures.find(_id);
 
-	//the pixels are now int the vector "image", 4 bytes per pixel, ordered RGBARGBA...
+	if (it != textures.end())
+		return &(it->second);
+	else
+		return NULL;
+}
+
+Texture ResourceManager::LoadTextureFromFile(std::string _filename)
+{
+	int id = hasher(_filename);
+
+	std::vector<unsigned char> tempData;
+	unsigned int tempWidth, tempHeight;
+
+	if (CheckTextureID(id) == NULL)
+	{
+		unsigned int error = lodepng::decode(tempData, tempWidth, tempHeight, _filename);
+		Debug::KillMessage(error == 0, "Failed to load image");
+
+		Texture tempTex(tempData, tempWidth, tempHeight);
+
+		AddTexture(id, tempTex);
+
+		return tempTex;
+	}
+	else
+		return *CheckTextureID(id);
+}	
+
+void ResourceManager::AddTexture(int _id, Texture _texture)
+{
+	textures.insert(std::make_pair(_id, _texture));
 }
 
 char* ResourceManager::TextFileRead(char* _filename)

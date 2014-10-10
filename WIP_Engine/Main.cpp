@@ -7,7 +7,7 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 
-static const GLfloat VERTEX_DATA[] =	//add texture coords
+static const GLfloat VERTEX_DATA[] =
 {
 	//1st vertex
 	0.77f, 0.66f,
@@ -34,28 +34,26 @@ int main()
 {
 	Window window(1200, 600, "This is window!");
 	Render render;
-
-	Texture texture;
-	texture.LoadFromFile("Test.png");
-
-	window.SetClearColor(100, 50, 150);
-
-	ResourceManager *res = new ResourceManager();
-
-	res->LoadPixelData("Test.png");
-
+	
 	render.EnableAttributeArray();
 
 	render.CreateBuffers(sizeof(VERTEX_DATA), sizeof(INDEX_DATA), VERTEX_DATA, INDEX_DATA);
 
+	render.EnableBlending();
+
+	ResourceManager* res = ResourceManager::Create();
+
+	Texture texture;
+	texture = res->LoadTextureFromFile("ColoroftheRainbow.png");
+
+	window.SetClearColor(100, 50, 150);
+
 	while (window.IsOpen())
 	{
 		window.Clear();
-		render.DebugDrawStuff(texture);
+		render.DebugDrawStuff(&texture);
 		window.Display();
 	}
-
-	res->~ResourceManager();
 
 	return 0;
 }

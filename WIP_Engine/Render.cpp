@@ -8,6 +8,8 @@ Render::Render()
 
 Render::~Render()
 {
+	glDeleteBuffers(2, buffers);
+	glDeleteProgram(shaderProgram);
 }
 
 void Render::InitializeShaders()
@@ -15,6 +17,8 @@ void Render::InitializeShaders()
 	GLuint glewOK;
 	glewOK = glewInit();
 	Debug::KillMessage(glewOK == GLEW_OK, "Glew initialization failed");
+	
+
 
 	char* vertexString;
 	char *fragmentString;
@@ -22,7 +26,7 @@ void Render::InitializeShaders()
 
 	//Vertex shader creation
 	vertexObject = glCreateShader(GL_VERTEX_SHADER);
-	vertexString = res.TextFileRead("VertexShader.glsl");
+	vertexString = ResourceManager::TextFileRead("VertexShader.glsl");
 	glShaderSource(vertexObject, 1, &vertexString, NULL);
 	free(vertexString);
 	glCompileShader(vertexObject);
@@ -34,7 +38,7 @@ void Render::InitializeShaders()
 
 	//Fragment shader creation
 	fragmentObject = glCreateShader(GL_FRAGMENT_SHADER);
-	fragmentString = res.TextFileRead("FragmentShader.glsl");
+	fragmentString = ResourceManager::TextFileRead("FragmentShader.glsl");
 	glShaderSource(fragmentObject, 1, &fragmentString, NULL);
 	free(fragmentString);
 	glCompileShader(fragmentObject);
@@ -53,7 +57,7 @@ void Render::InitializeShaders()
 
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &compile);
 
-	Debug::KillMessage(compile == GL_TRUE, "shaderObject Link failed");
+	Debug::KillMessage(compile == GL_TRUE, "shaderProgram Link failed");
 }
 
 void Render::EnableAttributeArray()
@@ -89,7 +93,13 @@ void Render::EnableUniformSampler()
 	uniSamplerLoc = glGetUniformLocation(shaderProgram, "uniSampler2D");
 }
 
-void Render::DebugDrawStuff(Texture _texture)
+void Render::EnableBlending()
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void Render::DebugDrawStuff(Texture* _texture)
 {
 	glUseProgram(shaderProgram);
 
@@ -100,7 +110,7 @@ void Render::DebugDrawStuff(Texture _texture)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
-	glBindTexture(GL_TEXTURE_2D, _texture.texture);
+	glBindTexture(GL_TEXTURE_2D, _texture->texture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindSampler(0, uniSamplerLoc);
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(0));

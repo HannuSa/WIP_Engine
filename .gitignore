@@ -172,3 +172,5 @@ $RECYCLE.BIN/
 *.sdf
 *.tlog
 *.tlog
+*.suo
+*.suo

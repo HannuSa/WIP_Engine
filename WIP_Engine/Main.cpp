@@ -7,22 +7,21 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 
-#include "VertexData.h"
 static const GLfloat VERTEX_DATA[] =	//add texture coords
 {
 	//1st vertex
 	0.77f, 0.66f,//Positio
-	0.75f, 0.0f, 0.75f,//color
+	0.75f, 0.0f, 0.0f,//color
 	1.0f, 0.0f,//texture
 
 	//2nd vertex
 	-0.77f, 0.66f,
-	0.0f, 0.75f, 0.75f,
+	0.0f, 0.0f, 0.75f,
 	0.0f, 0.0f,
 
 	//3rd vertex
 	0.0f, -0.66f,
-	1.0f, 1.0f, 1.0f,
+	0.0f, 0.0f, 0.0f,
 	0.5f, 1.0f
 };
 
@@ -40,10 +39,6 @@ int main()
 
 	render.CreateBuffers(sizeof(VERTEX_DATA), sizeof(INDEX_DATA), VERTEX_DATA, INDEX_DATA);
 
-	VertexData ver;
-	ver.AddVertex({ 0.77f, 0.66f, 0.75f, 0.0f, 0.75f, 1.0f, 0.0f,- 0.77f, 0.66f,0.0f, 0.75f, 0.75f,	0.0f, 0.0f,	0.0f, -0.66f,1.0f, 1.0f, 1.0f,0.5f, 1.0f });
-	ver.AddIndex({ 0, 1, 2 });
-
 	window.SetClearColor(100, 50, 150);
 
 	render.EnableBlending();
@@ -58,6 +53,10 @@ int main()
 	while (window.IsOpen())
 	{
 		window.Clear();
+		//render.BeginSpriteBatch();
+		//render.DrawSprite(miuOmaSprite);
+		//render.DrawSprite(jonkuToisenSprite);
+		//render.EndSpriteBatch();
 		render.DebugDrawStuff(&texture);
 		window.Display();
 	}

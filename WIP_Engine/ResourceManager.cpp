@@ -36,7 +36,7 @@ Texture ResourceManager::LoadTextureFromFile(std::string _filename)
 		unsigned int error = lodepng::decode(tempData, tempWidth, tempHeight, _filename);
 		Debug::KillMessage(error == 0, "Failed to load image");
 
-		Texture tempTex(tempData, tempWidth, tempHeight);
+		Texture tempTex(tempData, tempWidth, tempHeight, id);
 
 		AddTexture(id, tempTex);
 

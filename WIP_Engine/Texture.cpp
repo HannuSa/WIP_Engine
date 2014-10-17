@@ -1,11 +1,12 @@
 #include "Texture.h"
 #include "Debug.h"
 
-Texture::Texture(std::vector<unsigned char> _imageData, int _width, int _height)
+Texture::Texture(std::vector<unsigned char> _imageData, int _width, int _height, int _id)
 {
 	imageData = _imageData;
 	width = _width;
 	height = _height;
+	id = _id;
 
 	Initialize();
 }

@@ -54,7 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLEW\include;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GLEW\include;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,9 +91,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextFileRead.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="VertexData.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +101,9 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextFileRead.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="VertexData.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

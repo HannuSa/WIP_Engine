@@ -99,6 +99,26 @@ void Render::EnableBlending()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
+void Render::BeginSpriteBatch()
+{
+
+}
+
+void Render::DrawSprite(Sprite &_sprite)
+{
+	spriteBatch.push_back(&_sprite);
+}
+
+void Render::EndSpriteBatch()
+{
+	for (int i = 0; i < spriteBatch.size(); i++)
+	{
+		
+	}
+
+	spriteBatch.clear();
+}
+
 void Render::DebugDrawStuff(Texture* _texture)
 {
 	glUseProgram(shaderProgram);

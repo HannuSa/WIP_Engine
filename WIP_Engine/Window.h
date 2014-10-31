@@ -17,6 +17,9 @@ public:
 	void SetClearColor(int _red, int _green, int _blue);				//Set the window clear color
 	void Clear();														//Clear the window with a color
 	void Display();														//Swap buffers so the drawn stuff is shown
+	int GetWidth(){ return width; }
+	int GetHeight(){ return height; } 
+
 private:
 	std::string windowClassName;
 	WNDCLASSEX classex;

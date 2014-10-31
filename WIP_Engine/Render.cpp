@@ -73,6 +73,12 @@ void Render::EnableAttributeArray()
 	texCoordIndex = glGetAttribLocation(shaderProgram, "attrTexCoords");
 	assert(texCoordIndex >= 0);
 	glEnableVertexAttribArray(texCoordIndex);
+
+	uniSampler = glGetUniformLocation(shaderProgram, "uniSampler2D");
+	assert(uniSampler >= 0);
+
+	projectionLocation = glGetUniformLocation(shaderProgram, "unifProjection");
+	assert(projectionLocation >= 0);
 }
 
 void Render::CreateBuffers(GLsizeiptr _vertexSize, GLsizeiptr _indexSize, const GLfloat* _vertexData, const GLuint* _indexData)
@@ -99,6 +105,15 @@ void Render::EnableBlending()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
+void Render::InitializeProjection()
+{
+	const glm::mat4 projection = glm::ortho(0.0f, 1200.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+
+	glUseProgram(shaderProgram);
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&projection));
+	glUseProgram(0u);
+}
+
 void Render::BeginSpriteBatch()
 {
 
@@ -106,7 +121,7 @@ void Render::BeginSpriteBatch()
 
 void Render::DrawSprite(Sprite &_sprite)
 {
-	spriteBatch.push_back(&_sprite);
+		spriteBatch.push_back(&_sprite);
 }
 
 void Render::EndSpriteBatch()

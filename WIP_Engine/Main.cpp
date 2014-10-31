@@ -10,17 +10,17 @@
 static const GLfloat VERTEX_DATA[] =	//add texture coords
 {
 	//1st vertex
-	0.77f, 0.66f,//Positio
+	600, 100,//Positio
 	0.75f, 0.0f, 0.0f,//color
 	1.0f, 0.0f,//texture
 
 	//2nd vertex
-	-0.77f, 0.66f,
+	200, 500,
 	0.0f, 0.0f, 0.75f,
 	0.0f, 0.0f,
 
 	//3rd vertex
-	0.0f, -0.66f,
+	1000, 500,
 	0.0f, 0.0f, 0.0f,
 	0.5f, 1.0f
 };
@@ -42,6 +42,8 @@ int main()
 	window.SetClearColor(100, 50, 150);
 
 	render.EnableBlending();
+
+	render.InitializeProjection();
 
 	ResourceManager* res = ResourceManager::Create();
 

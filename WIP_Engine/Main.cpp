@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "ResourceManager.h"
 #include "Texture.h"
+#include "MemoryHandler.h"
 
 static const GLfloat VERTEX_DATA[] =	//add texture coords
 {
@@ -32,12 +33,36 @@ static const GLuint INDEX_DATA[] =
 
 int main()
 {
+
+	MemoryHandler m;
+	m.Allocate(3 * 7, 3);
+	
+	//1st vertex
+	m.setPos(0, 600, 100);
+	m.setColor(0, 0.75f, 0.0f, 0.0f);
+	m.setTexture(0, 1.0f, 0.0f);
+
+	//2nd vertex
+	m.setPos(1, 200, 500);
+	m.setColor(1, 0.0f, 0.0f, 0.0f);
+	m.setTexture(1, 0.0f, 0.0f);
+
+	//3rd vertex
+	m.setPos(2, 1000, 500);
+	m.setColor(2, 0.0f, 0.0f, 0.75f);
+	m.setTexture(2, 0.5f, 1.0f);
+
+	//Index array
+	m.indexArray[0] = 0;
+	m.indexArray[1] = 1;
+	m.indexArray[2] = 2;
+
 	Window window(1200, 600, "This is window!");
 	Render render;
 	
 	render.EnableAttributeArray();
 
-	render.CreateBuffers(sizeof(VERTEX_DATA), sizeof(INDEX_DATA), VERTEX_DATA, INDEX_DATA);
+	render.CreateBuffers(m.getVertexSize(), m.getIndexSize(), m.vertexArray, m.indexArray);
 
 	window.SetClearColor(100, 50, 150);
 

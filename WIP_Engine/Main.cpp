@@ -26,7 +26,7 @@ static const GLfloat VERTEX_DATA[] =	//add texture coords
 	0.5f, 1.0f
 };
 
-static GLuint INDEX_DATA[] =
+static const GLuint INDEX_DATA[] =
 {
 	0, 1, 2
 };
@@ -53,7 +53,9 @@ int main()
 	m.setTexture(2, 0.5f, 1.0f);
 
 	//Index array
-	m.setIndex(INDEX_DATA);
+	m.indexArray[0] = 0;
+	m.indexArray[1] = 1;
+	m.indexArray[2] = 2;
 
 	Window window(1200, 600, "This is window!");
 	Render render;

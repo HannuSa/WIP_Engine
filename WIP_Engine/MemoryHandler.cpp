@@ -10,7 +10,6 @@ MemoryHandler::MemoryHandler()
 
 MemoryHandler::~MemoryHandler()
 {
-	DeAllocate();
 }
 
 void MemoryHandler::Allocate(unsigned int _vertexsize, unsigned int _indexsize)
@@ -76,14 +75,6 @@ void MemoryHandler::setTexture(unsigned int _vertex, GLfloat _x, GLfloat _y)
 		vertexArray[_vertex * valueNum + 6] = _y;
 	}
 	Debug::Message(_vertex < vertexsize, "setTexture: vertexArray out of pounds");
-}
-
-void MemoryHandler::setIndex(GLuint _index[])
-{
-	for (int i = 0; i < indexsize; i++)
-	{
-		indexArray[i] = _index[i];
-	}
 }
 
 size_t MemoryHandler::getVertexSize()

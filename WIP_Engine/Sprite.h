@@ -1,14 +1,12 @@
 #pragma once
 
-#include <glm.hpp>
 #include "Texture.h"
+#include <glm.hpp>
 
 class Sprite
 {
 public:
 	Sprite();
-	Sprite(Texture _texture, GLfloat _posX, GLfloat _posY);
-	Sprite(Texture _texture, GLfloat _posX, GLfloat _posY, GLfloat _width, GLfloat _height);
 	~Sprite();
 
 	void SetTexture(Texture _texture);

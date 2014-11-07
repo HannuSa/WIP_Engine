@@ -9,6 +9,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "ResourceManager.h"
+#include "MemoryHandler.h"
 #include "Sprite.h"
 #include "Window.h"
 
@@ -36,4 +37,5 @@ private:
 	GLuint positionIndex, colorIndex, texCoordIndex, uniSampler, projectionLocation;
 	GLint uniSamplerLoc;
 	std::vector<Sprite*> spriteBatch;
+	MemoryHandler memoryHandler;
 };

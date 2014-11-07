@@ -121,7 +121,25 @@ void Render::BeginSpriteBatch()
 
 void Render::DrawSprite(Sprite &_sprite)
 {
-		spriteBatch.push_back(&_sprite);
+		//spriteBatch.push_back(&_sprite);
+
+	memoryHandler.Allocate(4 * 7, 6);
+	glm::vec2 spritePos = _sprite.getPos();
+	GLfloat spriteWidth = _sprite.getWidth();
+	GLfloat spriteHeight = _sprite.getHeight();
+	//1st vertex
+	memoryHandler.setPos(0, spritePos.x, spritePos.y);
+	memoryHandler.setTexture(0, 0.0f, 1.0f);
+	//2nd vertex
+	memoryHandler.setPos(1, spritePos.x + spriteWidth, spritePos.y);
+	memoryHandler.setTexture(1, 1.0f, 1.0f);
+	//3rd vertex
+	memoryHandler.setPos(2, spritePos.x + spriteWidth, spritePos.y + spriteHeight);
+	memoryHandler.setTexture(2, 1.0f, 0.0f);
+	//4th vertex
+	memoryHandler.setPos(3, spritePos.x, spritePos.y + spriteHeight);
+	memoryHandler.setTexture(3, 0.0f, 0.0f);
+
 }
 
 void Render::EndSpriteBatch()

@@ -39,17 +39,17 @@ int main()
 	
 	//1st vertex
 	m.setPos(0, 600, 100);
-	m.setColor(0, 0.75f, 0.0f, 0.0f);
+	m.setColor(0, 1.0f, 1.0f, 1.0f);
 	m.setTexture(0, 1.0f, 0.0f);
 
 	//2nd vertex
 	m.setPos(1, 200, 500);
-	m.setColor(1, 0.0f, 0.0f, 0.0f);
+	m.setColor(1, 1.0f, 1.0f, 1.0f);
 	m.setTexture(1, 0.0f, 0.0f);
 
 	//3rd vertex
 	m.setPos(2, 1000, 500);
-	m.setColor(2, 0.0f, 0.0f, 0.75f);
+	m.setColor(2, 1.0f, 1.0f, 1.00f);
 	m.setTexture(2, 0.5f, 1.0f);
 
 	//Index array

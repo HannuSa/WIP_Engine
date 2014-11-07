@@ -77,6 +77,27 @@ void MemoryHandler::setTexture(unsigned int _vertex, GLfloat _x, GLfloat _y)
 	Debug::Message(_vertex < vertexsize, "setTexture: vertexArray out of pounds");
 }
 
+void MemoryHandler::setIndex(GLuint _index[])
+{
+	for (int i = 0; i < indexsize; i++)
+	{
+		indexArray[i] = _index[i];
+	}
+}
+
+void MemoryHandler::setIndex(int _iamount, ...)
+{
+	std::va_list indexes;
+
+	va_start(indexes, _iamount);
+
+	for (int i = 0; i < indexsize; i++)
+	{
+		indexArray[i] = va_arg(indexes, GLuint);
+	}
+	va_end(indexes);
+}
+
 size_t MemoryHandler::getVertexSize()
 {
 	return sizeof(vertexArray)*vertexsize;

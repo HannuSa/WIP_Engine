@@ -53,9 +53,7 @@ int main()
 	m.setTexture(2, 0.5f, 1.0f);
 
 	//Index array
-	m.indexArray[0] = 0;
-	m.indexArray[1] = 1;
-	m.indexArray[2] = 2;
+	m.setIndex(3, 0, 1, 2);
 
 	Window window(1200, 600, "This is window!");
 	Render render;

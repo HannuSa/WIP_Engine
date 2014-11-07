@@ -1,5 +1,6 @@
 #pragma once
 #include "GL\glew.h"
+#include <cstdarg>
 
 /*struct Vertex
 {
@@ -25,6 +26,8 @@ public:
 	void setPos(unsigned int _vertex, GLfloat _x, GLfloat _y);//Setter for position
 	void setColor(unsigned int _vertex, GLfloat _x, GLfloat _y, GLfloat _z);//Setter for color
 	void setTexture(unsigned int _vertex, GLfloat _x, GLfloat _y);//Setter for texture position
+	void setIndex(GLuint _index[]);
+	void setIndex(int _iamount, ...);
 
 	private:
 	unsigned int vertexsize, indexsize, valueNum; //vertexsize + indexsize = array size, valueNum = values in single vertex, 

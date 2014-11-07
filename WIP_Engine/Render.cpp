@@ -124,9 +124,10 @@ void Render::DrawSprite(Sprite &_sprite)
 		//spriteBatch.push_back(&_sprite);
 
 	memoryHandler.Allocate(4 * 7, 6);
-	glm::vec2 spritePos = _sprite.getPos();
-	GLfloat spriteWidth = _sprite.getWidth();
-	GLfloat spriteHeight = _sprite.getHeight();
+	glm::vec2 spritePos = _sprite.GetPos();
+	GLfloat spriteWidth = _sprite.GetWidth();
+	GLfloat spriteHeight = _sprite.GetHeight();
+
 	//1st vertex
 	memoryHandler.setPos(0, spritePos.x, spritePos.y);
 	memoryHandler.setTexture(0, 0.0f, 1.0f);
@@ -139,7 +140,28 @@ void Render::DrawSprite(Sprite &_sprite)
 	//4th vertex
 	memoryHandler.setPos(3, spritePos.x, spritePos.y + spriteHeight);
 	memoryHandler.setTexture(3, 0.0f, 0.0f);
+	
+	memoryHandler.setIndex(6, 0, 1, 2, 2, 3, 0);
 
+	CreateBuffers(memoryHandler.getVertexSize(), memoryHandler.getIndexSize(), memoryHandler.vertexArray, memoryHandler.indexArray);
+
+	glUseProgram(shaderProgram);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
+	glVertexAttribPointer(positionIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(0));
+	glVertexAttribPointer(colorIndex, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat)));
+	glVertexAttribPointer(texCoordIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(5 * sizeof(GLfloat)));
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
+	glBindTexture(GL_TEXTURE_2D, _sprite.GetTexture()->texture);
+	glActiveTexture(GL_TEXTURE0);
+	glBindSampler(0, uniSamplerLoc);
+	glDrawElements(GL_TRIANGLES, 6u, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(0));
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glUseProgram(0);
 }
 
 void Render::EndSpriteBatch()

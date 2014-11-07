@@ -14,11 +14,12 @@ public:
 	void SetSize(GLfloat _width, GLfloat _height);
 	void SetTextureRect(glm::vec2 _textureRectPos, GLfloat _textureRectWidth, GLfloat _textureRectHeight);
 	int GetTextureID();
-	glm::vec2 getPos(){ return position; }
-	GLfloat getX(){ return position.x; }
-	GLfloat getY(){ return position.y; }
-	GLfloat getHeight(){ return height; }
-	GLfloat getWidth(){ return width; }
+	glm::vec2 GetPos(){ return position; }
+	GLfloat GetX(){ return position.x; }
+	GLfloat GetY(){ return position.y; }
+	GLfloat GetHeight(){ return height; }
+	GLfloat GetWidth(){ return width; }
+	Texture* GetTexture(){ return &texture; }
 
 private:
 

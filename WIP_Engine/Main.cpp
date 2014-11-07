@@ -34,35 +34,35 @@ static const GLuint INDEX_DATA[] =
 int main()
 {
 
-	MemoryHandler m;
-	m.Allocate(3 * 7, 3);
-	
-	//1st vertex
-	m.setPos(0, 600, 100);
-	m.setColor(0, 1.0f, 1.0f, 1.0f);
-	m.setTexture(0, 1.0f, 0.0f);
+	//MemoryHandler m;
+	//m.Allocate(3 * 7, 3);
+	//
+	////1st vertex
+	//m.setPos(0, 600, 100);
+	//m.setColor(0, 1.0f, 1.0f, 1.0f);
+	//m.setTexture(0, 1.0f, 0.0f);
 
-	//2nd vertex
-	m.setPos(1, 200, 500);
-	m.setColor(1, 1.0f, 1.0f, 1.0f);
-	m.setTexture(1, 0.0f, 0.0f);
+	////2nd vertex
+	//m.setPos(1, 200, 500);
+	//m.setColor(1, 1.0f, 1.0f, 1.0f);
+	//m.setTexture(1, 0.0f, 0.0f);
 
-	//3rd vertex
-	m.setPos(2, 1000, 500);
-	m.setColor(2, 1.0f, 1.0f, 1.00f);
-	m.setTexture(2, 0.5f, 1.0f);
+	////3rd vertex
+	//m.setPos(2, 1000, 500);
+	//m.setColor(2, 1.0f, 1.0f, 1.00f);
+	//m.setTexture(2, 0.5f, 1.0f);
 
-	//Index array
-	m.indexArray[0] = 0;
-	m.indexArray[1] = 1;
-	m.indexArray[2] = 2;
+	////Index array
+	//m.indexArray[0] = 0;
+	//m.indexArray[1] = 1;
+	//m.indexArray[2] = 2;
 
 	Window window(1200, 600, "This is window!");
 	Render render;
 	
 	render.EnableAttributeArray();
 
-	render.CreateBuffers(m.getVertexSize(), m.getIndexSize(), m.vertexArray, m.indexArray);
+	/*render.CreateBuffers(m.getVertexSize(), m.getIndexSize(), m.vertexArray, m.indexArray);*/
 
 	window.SetClearColor(100, 50, 150);
 
@@ -74,8 +74,17 @@ int main()
 
 	Texture texture;
 	texture = res->LoadTextureFromFile("ColoroftheRainbow.png");
+	Texture texture2 = res->LoadTextureFromFile("Test.png");
+
+	Sprite test;
+	Sprite test2;
+	test.SetTexture(texture2);
+	test2.SetTexture(texture);
+	test.SetPosition(100, 100);
+	test.SetSize(200, 291);
 
 	window.SetClearColor(100, 50, 150);
+	float x = 100, y = 100;
 
 	while (window.IsOpen())
 	{
@@ -84,7 +93,11 @@ int main()
 		//render.DrawSprite(miuOmaSprite);
 		//render.DrawSprite(jonkuToisenSprite);
 		//render.EndSpriteBatch();
-		render.DebugDrawStuff(&texture);
+	/*	render.DebugDrawStuff(&texture);*/
+		x += 5; y++;
+		test.SetPosition(x, y);
+		render.DrawSprite(test);
+		render.DrawSprite(test2);
 		window.Display();
 	}
 

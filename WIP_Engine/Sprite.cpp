@@ -4,6 +4,9 @@
 
 Sprite::Sprite()
 {
+	position = glm::vec2(0, 0);
+	height = 0;
+	width = 0;
 }
 
 
@@ -14,6 +17,8 @@ Sprite::~Sprite()
 void Sprite::SetTexture(Texture _texture)
 {
 	texture = _texture;
+	height = _texture.height;
+	width = _texture.width;
 }
 
 void Sprite::SetPosition(GLfloat _posX, GLfloat _posY)

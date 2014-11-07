@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdarg>
 #include "GL\glew.h"
 
 /*struct Vertex
@@ -14,6 +15,8 @@ public:
 	MemoryHandler();
 	~MemoryHandler();
 
+	void setIndex(GLuint _index[]);
+	void setIndex(int _iamount, ...);
 	void Allocate(unsigned int _vertexsize, unsigned int _indexsize);//Allocates the arrays
 	void DeAllocate();
 	size_t getVertexSize();//Returns the size of of vertexArray

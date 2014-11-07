@@ -25,6 +25,27 @@ void MemoryHandler::Allocate(unsigned int _vertexsize, unsigned int _indexsize)
 	InitArrays();
 }
 
+void MemoryHandler::setIndex(GLuint _index[])
+{
+	for (int i = 0; i < indexsize; i++)
+	{
+		indexArray[i] = _index[i];
+	}
+}
+
+void MemoryHandler::setIndex(int _iamount, ...)
+{
+	std::va_list indexes;
+
+	va_start(indexes, _iamount);
+
+	for (int i = 0; i < indexsize; i++)
+	{
+		indexArray[i] = va_arg(indexes, GLuint);
+	}
+	va_end(indexes);
+}
+
 
 void MemoryHandler::DeAllocate()
 {

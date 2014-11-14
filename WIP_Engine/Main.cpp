@@ -80,12 +80,16 @@ int main()
 	Sprite test2;
 	test.SetTexture(texture2);
 	test2.SetTexture(texture);
-	test.SetPosition(100, 100);
+	test.SetPosition(700, 500);
+	test2.SetPosition(-(993/2), -(960/2));
 	test.SetSize(200, 291);
+	test2.Scale(1.0f);
+	test.Rotate(30.0f);
 
 	window.SetClearColor(100, 50, 150);
 	float x = 100, y = 100;
-
+	float rotation = 0;
+	int timer = 0;
 	while (window.IsOpen())
 	{
 		window.Clear();
@@ -94,10 +98,14 @@ int main()
 		//render.DrawSprite(jonkuToisenSprite);
 		//render.EndSpriteBatch();
 	/*	render.DebugDrawStuff(&texture);*/
-		x += 5; y++;
+		timer++;
+		rotation++;
 		test.SetPosition(x, y);
-		render.DrawSprite(test);
+		render.DrawSprite(test);	
 		render.DrawSprite(test2);
+		test2.Rotate(rotation);
+		test.Rotate(rotation);
+
 		window.Display();
 	}
 

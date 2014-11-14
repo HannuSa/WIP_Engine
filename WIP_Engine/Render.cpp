@@ -74,6 +74,9 @@ void Render::EnableAttributeArray()
 	assert(texCoordIndex >= 0);
 	glEnableVertexAttribArray(texCoordIndex);
 
+	rotationIndex = glGetUniformLocation(shaderProgram, "rotMatrix");
+	assert(rotationIndex >= 0);
+
 	uniSampler = glGetUniformLocation(shaderProgram, "uniSampler2D");
 	assert(uniSampler >= 0);
 
@@ -111,7 +114,7 @@ void Render::InitializeProjection()
 
 	glUseProgram(shaderProgram);
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&projection));
-	glUseProgram(0u);
+	glUseProgram(0u); 
 }
 
 void Render::BeginSpriteBatch()
@@ -124,7 +127,7 @@ void Render::DrawSprite(Sprite &_sprite)
 		//spriteBatch.push_back(&_sprite);
 
 	memoryHandler.Allocate(4 * 7, 6);
-	glm::vec2 spritePos = _sprite.GetPos();
+	glm::vec2 spritePos = _sprite.GetPos(); 
 	GLfloat spriteWidth = _sprite.GetWidth();
 	GLfloat spriteHeight = _sprite.GetHeight();
 
@@ -146,6 +149,13 @@ void Render::DrawSprite(Sprite &_sprite)
 	CreateBuffers(memoryHandler.getVertexSize(), memoryHandler.getIndexSize(), memoryHandler.vertexArray, memoryHandler.indexArray);
 
 	glUseProgram(shaderProgram);
+
+	glm::mat4 currMat(1.0f);
+	currMat = glm::translate(currMat, glm::vec3(0.5f, 0.5f, 0.0f));
+	currMat = glm::rotate(currMat, _sprite.GetRotation(), glm::vec3(0.0f, 0.0f, 1.0f));
+	currMat = glm::translate(currMat, glm::vec3(-0.5f, -0.5f, 0.0f));
+
+	glUniformMatrix4fv(rotationIndex, 1, GL_FALSE, reinterpret_cast<const float*>(&currMat));
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
 	glVertexAttribPointer(positionIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(0));

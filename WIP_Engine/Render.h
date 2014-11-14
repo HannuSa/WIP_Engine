@@ -35,6 +35,7 @@ private:
 	GLuint shaderProgram;
 	GLuint buffers[2];
 	GLuint positionIndex, colorIndex, texCoordIndex, uniSampler, projectionLocation;
+	GLuint rotationIndex;
 	GLint uniSamplerLoc;
 	std::vector<Sprite*> spriteBatch;
 	MemoryHandler memoryHandler;

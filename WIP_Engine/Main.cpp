@@ -90,10 +90,10 @@ int main()
 
 	std::vector<Sprite> megatest;
 
-	//for (unsigned int i = 0; i < 5000; i++)
-	//{
-	//	megatest.push_back(test);
-	//}
+	for (unsigned int i = 0; i < 5000; i++)
+	{
+		megatest.push_back(test);
+	}
 
 	window.SetClearColor(100, 50, 150);
 	float x = 100, y = 100;
@@ -116,11 +116,11 @@ int main()
 		render.DrawSprite(test);	
 		render.DrawSprite(test2);
 		render.DrawSprite(test3);
-		/*for (int i = 0; i < megatest.size(); i++)
+		for (int i = 0; i < megatest.size(); i++)
 		{
 			render.DrawSprite(megatest[i]);
 			megatest[i].Rotate(rotation*i);
-		}*/
+		}
 		test2.Rotate(rotation);
 		test.Rotate(rotation);
 		test3.Rotate(rotation);

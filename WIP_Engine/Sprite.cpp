@@ -15,7 +15,7 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::SetTexture(Texture _texture)
+void Sprite::SetTexture(Texture &_texture)
 {
 	texture = _texture;
 	height = _texture.height;

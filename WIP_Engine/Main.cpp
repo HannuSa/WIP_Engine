@@ -72,24 +72,36 @@ int main()
 
 	ResourceManager* res = ResourceManager::Create();
 
-	Texture texture;
-	texture = res->LoadTextureFromFile("ColoroftheRainbow.png");
-	Texture texture2 = res->LoadTextureFromFile("Test.png");
+	Texture* texture;
+	texture = &res->LoadTextureFromFile("ColoroftheRainbow.png");
+	Texture* texture2 = &res->LoadTextureFromFile("Test.png");
 
 	Sprite test;
-	Sprite test2;
-	test.SetTexture(texture2);
-	test2.SetTexture(texture);
+	Sprite test2, test3;
+	test.SetTexture(*texture2);
+	test2.SetTexture(*texture);
 	test.SetPosition(700, 500);
-	test2.SetPosition(-(993/2), -(960/2));
+	test2.SetPosition(200, 200);
+	test3.SetTexture(*texture);
+	test3.SetPosition(400, 400);
 	test.SetSize(200, 291);
 	test2.Scale(1.0f);
 	test.Rotate(30.0f);
+
+	std::vector<Sprite> megatest;
+
+	//for (unsigned int i = 0; i < 5000; i++)
+	//{
+	//	megatest.push_back(test);
+	//}
 
 	window.SetClearColor(100, 50, 150);
 	float x = 100, y = 100;
 	float rotation = 0;
 	int timer = 0;
+
+	test2.Scale(0.25f);
+
 	while (window.IsOpen())
 	{
 		window.Clear();
@@ -100,11 +112,18 @@ int main()
 	/*	render.DebugDrawStuff(&texture);*/
 		timer++;
 		rotation++;
-		test.SetPosition(x, y);
+		//test.SetPosition(x, y);
 		render.DrawSprite(test);	
 		render.DrawSprite(test2);
+		render.DrawSprite(test3);
+		/*for (int i = 0; i < megatest.size(); i++)
+		{
+			render.DrawSprite(megatest[i]);
+			megatest[i].Rotate(rotation*i);
+		}*/
 		test2.Rotate(rotation);
 		test.Rotate(rotation);
+		test3.Rotate(rotation);
 
 		window.Display();
 	}

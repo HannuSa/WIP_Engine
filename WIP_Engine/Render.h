@@ -8,6 +8,7 @@
 #include <GL/GLU.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
+#include <gtx/transform.hpp>
 #include "ResourceManager.h"
 #include "MemoryHandler.h"
 #include "Sprite.h"

@@ -9,7 +9,7 @@ public:
 	Sprite();
 	~Sprite();
 
-	void SetTexture(Texture _texture);
+	void SetTexture(Texture &_texture);
 	void SetPosition(GLfloat _posX, GLfloat _posY);
 	void SetSize(GLfloat _width, GLfloat _height);
 	void Scale(GLfloat _scale);

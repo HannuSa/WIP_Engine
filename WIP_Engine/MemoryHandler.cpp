@@ -61,10 +61,13 @@ void MemoryHandler::DeAllocate()
 
 void MemoryHandler::InitArrays()
 {
-	for (int i = 0; i < vertexsize; i++)
+	if (vertexArray > 0)
 	{
-		vertexArray[i] = 1.0f;
-	}	
+		for (int i = 0; i < vertexsize; i++)
+		{
+			vertexArray[i] = 1.0f;
+		}
+	}
 }
 
 void MemoryHandler::setPos(unsigned int _vertex, GLfloat _x, GLfloat _y)

@@ -46,6 +46,13 @@ void MemoryHandler::setIndex(int _iamount, ...)
 	va_end(indexes);
 }
 
+void MemoryHandler::setIndex(std::vector<GLuint> _indexes)
+{
+	for (int i = 0; i < indexsize; i++)
+	{
+		indexArray[i] = _indexes.at(i);
+	}
+}
 
 void MemoryHandler::DeAllocate()
 {

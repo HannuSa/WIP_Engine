@@ -1,9 +1,12 @@
 #include "Render.h"
 #include "Debug.h"
 
-Render::Render()
+Render::Render(float _winWidth, float _winHeight)
 {
 	InitializeShaders();
+
+	winWidth = _winWidth;
+	winHeight = _winHeight;
 
 	memoryHandler.Allocate(4 * 7, 6);
 	buffers[0] = 0;
@@ -22,8 +25,6 @@ void Render::InitializeShaders()
 	glewOK = glewInit();
 	Debug::KillMessage(glewOK == GLEW_OK, "Glew initialization failed");
 	
-
-
 	char* vertexString;
 	char *fragmentString;
 	GLint compile;
@@ -114,7 +115,7 @@ void Render::EnableBlending()
 
 void Render::InitializeProjection()
 {
-	const glm::mat4 projection = glm::ortho(0.0f, 1200.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+	const glm::mat4 projection = glm::ortho(0.0f, winWidth, winHeight, 0.0f, -1.0f, 1.0f);
 
 	glUseProgram(shaderProgram);
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, reinterpret_cast<const float*>(&projection));
@@ -129,24 +130,39 @@ void Render::BeginSpriteBatch()
 void Render::DrawSprite(Sprite &_sprite)
 {
 		//spriteBatch.push_back(&_sprite);
-
 	glm::vec2 spritePos = _sprite.GetPos(); 
 	GLfloat spriteWidth = _sprite.GetWidth();
 	GLfloat spriteHeight = _sprite.GetHeight();
+	GLfloat spriteRectWidth = _sprite.GetRectWidth();
+	GLfloat spriteRectHeight = _sprite.GetRectHeight();
 
 	//1st vertex
 	memoryHandler.setPos(0, spritePos.x, spritePos.y);
-	memoryHandler.setTexture(0, 0.0f, 1.0f);
+	
 	//2nd vertex
 	memoryHandler.setPos(1, spritePos.x + spriteWidth, spritePos.y);
-	memoryHandler.setTexture(1, 1.0f, 1.0f);
+	
 	//3rd vertex
 	memoryHandler.setPos(2, spritePos.x + spriteWidth, spritePos.y + spriteHeight);
-	memoryHandler.setTexture(2, 1.0f, 0.0f);
+	
 	//4th vertex
 	memoryHandler.setPos(3, spritePos.x, spritePos.y + spriteHeight);
-	memoryHandler.setTexture(3, 0.0f, 0.0f);
 	
+	if (_sprite.hasRectangle == false)
+	{
+		memoryHandler.setTexture(0, 0.0f, 1.0f);
+		memoryHandler.setTexture(1, 1.0f, 1.0f);
+		memoryHandler.setTexture(2, 1.0f, 0.0f);
+		memoryHandler.setTexture(3, 0.0f, 0.0f);
+	}
+
+	if (_sprite.hasRectangle == true)
+	{
+		memoryHandler.setTexture(0, _sprite.textureRectPos1.x, _sprite.textureRectPos1.y);
+		memoryHandler.setTexture(1, _sprite.textureRectPos2.x , _sprite.textureRectPos2.y);
+		memoryHandler.setTexture(2, _sprite.textureRectPos3.x, _sprite.textureRectPos3.y);
+		memoryHandler.setTexture(3, _sprite.textureRectPos4.x, _sprite.textureRectPos4.y);
+	}
 	memoryHandler.setIndex(6, 0, 1, 2, 2, 3, 0);
 
 	if (buffers[0] != 0)

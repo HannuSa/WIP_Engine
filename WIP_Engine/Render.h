@@ -17,7 +17,7 @@
 class Render
 {
 public:
-	Render();
+	Render(float _winHeight, float _winwidth);
 	~Render();
 	void InitializeShaders(); //Load & initialize vertex & fragment shaders & link the program
 	void EnableAttributeArray();
@@ -40,4 +40,6 @@ private:
 	GLint uniSamplerLoc;
 	std::vector<Sprite*> spriteBatch;
 	MemoryHandler memoryHandler;
+	float winHeight;
+	float winWidth;
 };

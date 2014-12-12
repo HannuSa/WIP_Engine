@@ -8,6 +8,8 @@ Sprite::Sprite()
 	rotation = 0;
 	height = 0;
 	width = 0;
+	hasRectangle = false;
+
 }
 
 
@@ -33,6 +35,23 @@ void Sprite::SetSize(GLfloat _width, GLfloat _height)
 	height = _height;
 }
 
+void Sprite::SetRectangle(wip::Rectangle &_rect)
+{
+		//1st position
+	textureRectPos1.x = _rect.getRectPosX() / texture.width;
+	textureRectPos1.y = (_rect.getRectPosY() + _rect.getRectHeight()) / texture.height;
+		//2nd position
+	textureRectPos2.x = (_rect.getRectPosX() + _rect.getRectWidth()) / texture.width;
+	textureRectPos2.y = (_rect.getRectPosY() + _rect.getRectHeight()) / texture.height;
+		//3rd position
+	textureRectPos3.x = (_rect.getRectPosX() + _rect.getRectWidth()) / texture.width;
+	textureRectPos3.y = _rect.getRectPosY() / texture.height;
+		//4th position
+	textureRectPos4.x = _rect.getRectPosX() / texture.width;
+	textureRectPos4.y = _rect.getRectPosY() / texture.height;
+	hasRectangle = true;
+}
+
 void Sprite::Scale(float _scale)
 {
 	width = width * _scale;
@@ -42,13 +61,6 @@ void Sprite::Scale(float _scale)
 void Sprite::Rotate(float _rotation)
 {
 	rotation = _rotation;
-}
-
-void Sprite::SetTextureRect(glm::vec2 _textureRectPos, GLfloat _textureRectWidth, GLfloat _textureRectHeight)
-{
-	textureRectPos = _textureRectPos;
-	textureRectWidth = _textureRectWidth;
-	textureRectHeight = _textureRectHeight;
 }
 
 int Sprite::GetTextureID()

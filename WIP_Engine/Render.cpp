@@ -4,13 +4,17 @@
 Render::Render(float _winWidth, float _winHeight)
 {
 	InitializeShaders();
-
+	
 	winWidth = _winWidth;
 	winHeight = _winHeight;
 
 	memoryHandler.Allocate(4 * 7, 6);
 	buffers[0] = 0;
 	buffers[1] = 0;
+	
+	EnableAttributeArray();
+	EnableBlending();
+	InitializeProjection();
 }
 
 Render::~Render()
@@ -122,14 +126,9 @@ void Render::InitializeProjection()
 	glUseProgram(0u); 
 }
 
-void Render::BeginSpriteBatch()
-{
-
-}
 
 void Render::DrawSprite(Sprite &_sprite)
 {
-		//spriteBatch.push_back(&_sprite);
 	glm::vec2 spritePos = _sprite.GetPos(); 
 	GLfloat spriteWidth = _sprite.GetWidth();
 	GLfloat spriteHeight = _sprite.GetHeight();
@@ -166,12 +165,14 @@ void Render::DrawSprite(Sprite &_sprite)
 	memoryHandler.setIndex(6, 0, 1, 2, 2, 3, 0);
 
 	if (buffers[0] != 0)
+	{
 		glDeleteBuffers(2, buffers);
+	}
+
 	CreateBuffers(memoryHandler.getVertexSize(), memoryHandler.getIndexSize(), memoryHandler.vertexArray, memoryHandler.indexArray);
 
 	glUseProgram(shaderProgram);
 
-	//glRotatef(_sprite.GetRotation(), 0.0f, 0.0f, 1.0f);
 
 	glm::mat4 currMat(1.0f);
 	currMat *= glm::translate(glm::vec3(_sprite.GetX()+0.5*_sprite.GetWidth(), _sprite.GetY()+0.5*_sprite.GetHeight(), 0.0f));
@@ -192,37 +193,6 @@ void Render::DrawSprite(Sprite &_sprite)
 	glActiveTexture(GL_TEXTURE0);
 	glBindSampler(0, uniSamplerLoc);
 	glDrawElements(GL_TRIANGLES, 6u, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(0));
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glUseProgram(0);
-}
-
-void Render::EndSpriteBatch()
-{
-	for (int i = 0; i < spriteBatch.size(); i++)
-	{
-		
-	}
-
-	spriteBatch.clear();
-}
-
-void Render::DebugDrawStuff(Texture* _texture)
-{
-	glUseProgram(shaderProgram);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-	glVertexAttribPointer(positionIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(0));
-	glVertexAttribPointer(colorIndex, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(2 * sizeof(GLfloat)));
-	glVertexAttribPointer(texCoordIndex, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(5 * sizeof(GLfloat)));
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
-	glBindTexture(GL_TEXTURE_2D, _texture->texture);
-	glActiveTexture(GL_TEXTURE0);
-	glBindSampler(0, uniSamplerLoc);
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(0));
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 

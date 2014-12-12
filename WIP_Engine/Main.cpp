@@ -4,9 +4,6 @@
 
 #include "Window.h"
 #include "Render.h"
-#include "ResourceManager.h"
-#include "Texture.h"
-#include "MemoryHandler.h"
 #include "Input.h"
 #include "Game_Timer_Random.h"
 
@@ -14,15 +11,7 @@ int main()
 {
 
 	Window window(1200, 600, "This is window!");
-	Render render(1200, 600);
-	
-	render.EnableAttributeArray();
-
-	window.SetClearColor(100, 50, 150);
-
-	render.EnableBlending();
-
-	render.InitializeProjection();
+	Render render(window.GetWidth(), window.GetHeight());
 
 	ResourceManager* res = ResourceManager::Create();
 

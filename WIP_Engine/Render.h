@@ -25,10 +25,8 @@ public:
 	void EnableBlending(); //Enable GL_BLEND & set BlendFunc
 	void InitializeProjection();
 	void CreateBuffers(GLsizeiptr _vertexSize, GLsizeiptr _indexSize, const GLfloat* _vertexData, const GLuint* _indexData); //Create buffers for vertex & index data
-	void BeginSpriteBatch();
 	void DrawSprite(Sprite &_sprite);
-	void EndSpriteBatch();
-	void DebugDrawStuff(Texture* _texture);
+
 
 private: 
 	GLuint vertexObject;
@@ -38,7 +36,6 @@ private:
 	GLuint positionIndex, colorIndex, texCoordIndex, uniSampler, projectionLocation;
 	GLuint rotationIndex;
 	GLint uniSamplerLoc;
-	std::vector<Sprite*> spriteBatch;
 	MemoryHandler memoryHandler;
 	float winHeight;
 	float winWidth;
